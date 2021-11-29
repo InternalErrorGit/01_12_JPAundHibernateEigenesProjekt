@@ -52,11 +52,12 @@ public class Person extends AbstractEntity {
         this.identity = identity;
     }
 
+    public static String[] getTableHeader() {
+        return new String[]{"ID", "Firstname", "Lastname", "Identity_ID", "Address_ID"};
+    }
+
     @Override
-    public String toString() {
-        return "Person{" +
-                "identity=" + identity +
-                ", address=" + address +
-                '}';
+    public Object[] toTableData() {
+        return new Object[]{getId(), getFirstname(), getLastname(), getIdentity().getId(), getAddress().getId()};
     }
 }

@@ -39,4 +39,12 @@ public class Identity extends AbstractEntity {
         return identity;
     }
 
+    public static String[] getTableHeader() {
+        return new String[]{"ID", "Birthdate", "UUID"};
+    }
+
+    @Override
+    public Object[] toTableData() {
+        return new Object[]{getId(), getBirthdate().toString(), getUuid()};
+    }
 }

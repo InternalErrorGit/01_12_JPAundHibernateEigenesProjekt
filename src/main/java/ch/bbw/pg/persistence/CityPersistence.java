@@ -1,8 +1,11 @@
 package ch.bbw.pg.persistence;
 
+import ch.bbw.pg.entity.AbstractEntity;
+import ch.bbw.pg.entity.Address;
 import ch.bbw.pg.entity.City;
 
 import javax.persistence.EntityManager;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,7 +21,9 @@ public class CityPersistence extends Persistence<City> {
     @Override
     @SuppressWarnings("unchecked")
     public List<City> list() {
-        return entityManager.createNamedQuery("City.findAll").getResultList();
+        List<City> list = entityManager.createNamedQuery("City.findAll").getResultList();
+        list.sort(Comparator.comparingLong(AbstractEntity::getId));
+        return list;
     }
 
     @Override
