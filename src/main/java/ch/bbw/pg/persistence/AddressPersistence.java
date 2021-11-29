@@ -1,8 +1,10 @@
 package ch.bbw.pg.persistence;
 
+import ch.bbw.pg.entity.AbstractEntity;
 import ch.bbw.pg.entity.Address;
 
 import javax.persistence.EntityManager;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,7 +20,9 @@ public class AddressPersistence extends Persistence<Address> {
 
     @Override
     public List<Address> list() {
-        return entityManager.createNamedQuery("Address.findAll").getResultList();
+        List<Address> list = entityManager.createNamedQuery("Address.findAll").getResultList();
+        list.sort(Comparator.comparingLong(AbstractEntity::getId));
+        return list;
     }
 
     @Override

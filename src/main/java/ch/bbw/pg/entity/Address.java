@@ -39,4 +39,18 @@ public class Address extends AbstractEntity {
     public void setStreet(String street) {
         this.street = street;
     }
+
+    @Override
+    public String toString() {
+        return street + " " + housenumber + " " + city.getName();
+    }
+
+    public static String[] getTableHeader() {
+        return new String[]{"ID", "Street", "Housenumber", "City_id"};
+    }
+
+    @Override
+    public Object[] toTableData() {
+        return new Object[]{getId(), getStreet(), getHousenumber(), getCity().getId()};
+    }
 }

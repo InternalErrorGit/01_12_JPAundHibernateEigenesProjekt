@@ -1,9 +1,10 @@
 package ch.bbw.pg.persistence;
 
-import ch.bbw.pg.entity.Country;
+import ch.bbw.pg.entity.AbstractEntity;
 import ch.bbw.pg.entity.Person;
 
 import javax.persistence.EntityManager;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -20,7 +21,9 @@ public class PersonPersistence extends Persistence<Person> {
     @Override
     @SuppressWarnings("unchecked")
     public List<Person> list() {
-        return entityManager.createNamedQuery("Person.findAll").getResultList();
+        List<Person> list = entityManager.createNamedQuery("Person.findAll").getResultList();
+        list.sort(Comparator.comparingLong(AbstractEntity::getId));
+        return list;
     }
 
     @Override

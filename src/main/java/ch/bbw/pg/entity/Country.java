@@ -1,8 +1,9 @@
 package ch.bbw.pg.entity;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Table(name = "country")
 @Entity
@@ -11,19 +12,6 @@ public class Country extends AbstractEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
-    @JoinTable(name = "country_cities",
-            joinColumns = @JoinColumn(name = "country_id"),
-            inverseJoinColumns = @JoinColumn(name = "cities_id"))
-    private Set<City> cities;
-
-    public Set<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(Set<City> cities) {
-        this.cities = cities;
-    }
 
     public String getName() {
         return name;
@@ -31,5 +19,19 @@ public class Country extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static String[] getTableHeader() {
+        return new String[]{"ID", "Name"};
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public Object[] toTableData() {
+        return new Object[]{getId(), getName()};
     }
 }
